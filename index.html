@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escoge el corazón correcto</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #ff1493;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 400px;
+            margin: auto;
+        }
+        .heart-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+        .heart {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .heart:hover {
+            transform: scale(1.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 100px;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: red;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .congrats {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ff1493;
+            font-weight: bold;
+        }
+    </style>
+<style>
+    body {
+      background-color: #ADD8E6; /* Azul claro */
+    }
+  </style>
+  
+</head>
+<body>
+    <h1>Escoge el corazón correcto</h1>
+    <div class="game-container" id="gameContainer"></div>
+    <img id="gif" class="hidden" src="https://piskel-imgstore-b.appspot.com/img/0ac97923-ea53-11ef-b545-8b6bec618cf2.gif" alt="Felicidades" style="width: 250px; height: auto;">
+    <div class="congrats hidden" id="congratsMessage">¡Felicidades, encontraste el corazón correcto!</div>
+    <div id="messageContainer"></div> <!-- Contenedor para los mensajes -->
+
+    <script>
+        const gameContainer = document.getElementById("gameContainer");
+        const gif = document.getElementById("gif");
+        const congratsMessage = document.getElementById("congratsMessage");
+        const messageContainer = document.getElementById("messageContainer");
+
+        const totalHearts = 9;
+        const correctHeart = Math.floor(Math.random() * totalHearts);
+
+        // Lista de mensajes aleatorios cuando fallas
+        const failMessages = ["Oh no 😟", "¡Este no es! ❌", "Inténtalo otra vez 🔄", "No es el correcto 😅", "Sigue buscando 👀"];
+
+        for (let i = 0; i < totalHearts; i++) {
+            let heartContainer = document.createElement("div");
+            heartContainer.classList.add("heart-container");
+
+            let heart = document.createElement("img");
+            heart.src = "https://cdn-icons-png.flaticon.com/512/833/833472.png";
+            heart.classList.add("heart");
+            heart.dataset.index = i;
+
+            heart.addEventListener("click", function() {
+                if (parseInt(this.dataset.index) === correctHeart) {
+                    gif.classList.remove("hidden");
+                    congratsMessage.classList.remove("hidden");
+                    messageContainer.textContent = ""; // Borra el mensaje de error
+                    document.querySelectorAll(".heart").forEach(h => h.style.pointerEvents = "none");
+
+                    // Agregar mensaje de créditos cuando se acierta
+                    const footerMessage = document.createElement("p");
+                    footerMessage.textContent = "Creado por Su y Cleo";
+                    footerMessage.style.fontSize = "14px";
+                    footerMessage.style.marginTop = "20px";
+                    footerMessage.style.textAlign = "center";
+                    document.body.appendChild(footerMessage); // Lo agrega a la página
+                } else {
+                    // Escoge un mensaje aleatorio de la lista
+                    let randomMessage = failMessages[Math.floor(Math.random() * failMessages.length)];
+                    messageContainer.textContent = randomMessage;
+                    messageContainer.style.color = "red";
+                }
+            });
+
+            heartContainer.appendChild(heart);
+            gameContainer.appendChild(heartContainer);
+        }
+    </script>
+</body>
+
+</html>
