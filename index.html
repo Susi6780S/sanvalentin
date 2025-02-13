@@ -56,7 +56,7 @@
     </style>
 <style>
     body {
-      background-color: #ADD8E6; /* Azul claro */
+      background-color: #ADD8E6; 
     }
   </style>
   
@@ -66,7 +66,7 @@
     <div class="game-container" id="gameContainer"></div>
     <img id="gif" class="hidden" src="https://piskel-imgstore-b.appspot.com/img/0ac97923-ea53-11ef-b545-8b6bec618cf2.gif" alt="Felicidades" style="width: 250px; height: auto;">
     <div class="congrats hidden" id="congratsMessage">¡Felicidades, encontraste el corazón correcto!</div>
-    <div id="messageContainer"></div> <!-- Contenedor para los mensajes -->
+    <div id="messageContainer"></div> 
 
     <script>
         const gameContainer = document.getElementById("gameContainer");
@@ -93,16 +93,16 @@
                 if (parseInt(this.dataset.index) === correctHeart) {
                     gif.classList.remove("hidden");
                     congratsMessage.classList.remove("hidden");
-                    messageContainer.textContent = ""; // Borra el mensaje de error
+                    messageContainer.textContent = ""; 
                     document.querySelectorAll(".heart").forEach(h => h.style.pointerEvents = "none");
 
-                    // Agregar mensaje de créditos cuando se acierta
+                    
                     const footerMessage = document.createElement("p");
                     footerMessage.textContent = "Creado por Su y Cleo";
                     footerMessage.style.fontSize = "14px";
                     footerMessage.style.marginTop = "20px";
                     footerMessage.style.textAlign = "center";
-                    document.body.appendChild(footerMessage); // Lo agrega a la página
+                    document.body.appendChild(footerMessage); 
                 } else {
                     // Escoge un mensaje aleatorio de la lista
                     let randomMessage = failMessages[Math.floor(Math.random() * failMessages.length)];
